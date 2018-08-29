@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-订单页</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="stylesheet" href="./include/css/order.css">
+	<link rel="stylesheet" href="./include/css/user_info.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+</head>
+<body>
+	<!-- 头部广告begin -->
+	<!-- <div class="topbanner">
+		<a href="#"><img src="./include/images/topbanner.jpg" alt="" ></a>
+	</div> -->
+	<!-- 头部广告end -->
+<!-- 头部公共部分 beigin -->
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="#">手机360商城</a></li>
+			<?php
+				if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+					echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+					echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+				}else{
+					echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+					echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+				}
+			?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left" >
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				 <form action="" method="get">
+	                    <input type="text"  value=""   class="sousuo" name="q">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>             
+			</div>
+		<!-- search end -->
+
+		<!-- 购物车beigin -->
+			<div class="top_cart">
+	                <a href="./index.php?m=cart&a=show" class="btn_cart"  style="z-index:100001">
+	               	 <i></i>我的购物车<span class="cart-size"></span>
+	                </a>
+	                <div class="cart_bottom">
+	                    <div class="cart_bottom_center">请<a class="tip-login" href="">登录</a>后查看您的购物车。</div>
+	                    
+	                </div>
+	            </div>
+		<!-- 购物车end -->
+		</div>
+	</div>
+	<div class="nav">
+		<div class="nav_nav">
+			<ul class="nav_nav_ul">
+				<li class="nav_one"><a href="./index.php">全部智能酷品</a>
+				</li>
+			</ul>
+        </div>
+	</div>
+	<!-- 头部logo部分end -->
+<!-- 头部公共部分end -->
+
+<!-- 会员中心页面 begin -->
+	<div class="user-body">
+        <div class="user-container">
+            <div class="user-container">
+                <div class="user-crumbs m-b-10"><a href="/">首页</a> &gt;</div>
+                <div class="clearfix_new">
+                    <div class="user-menu m-r-20">
+					    <div class="menu-title">个人中心</div>
+					    <div class="menu-list">
+					        <a class="menu-item item-active" href="./index.php?m=user&a=info">个人信息管理</a>
+					        <a class="menu-item coupon_menu" href="./index.php?m=user&a=update">修改密码</a>
+					        <a class="menu-item coupon_menu" href="./index.php?m=user&a=order">我的订单</a>
+					    </div>
+					</div>                    
+				<div class="user-main" >
+				<div id="tab1" class="tabson">
+    <form method="post" action="./index.php?m=user&a=<?=$method?>" enctype="multipart/form-data">
+        <ul class="forminfo">
+        <li>
+            <label>用户名<b>*</b></label>
+            <input readonly name="username" type="text" class="dfinput" value="<?=$_SESSION['suser']['username']?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>真实姓名<b>*</b></label>
+            <input name="name" type="text" class="dfinput" value="<?php echo isset($result['name'])?$result['name']:''?>"  style="width:343px;"/>
+        </li>
+        <li>
+            <label>年龄<b>*</b></label>
+            <input name="age" type="number" min="1" max="200" class="dfinput" value="<?php echo isset($result['age'])?$result['age']:''?>"  style="width:343px;"/>
+        </li>
+        <li>
+            <label>性别：<b>*</b></label>
+            <input type="radio" name="sex" value="0" <?=$nv?> />女
+            <input type="radio" name="sex" value="1"  <?=$nan?> />男
+            <input type="radio" name="sex" value="2" <?=$baomi?>/>保密
+        </li>
+        <li>
+            <label>身份证<b>*</b></label>
+            <input name="code" type="text" class="dfinput" value="<?php echo isset($result['code'])?$result['code']:''?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>手机<b>*</b></label>
+            <input name="phone" type="tel" class="dfinput" value="<?php echo isset($result['phone'])?$result['phone']:''?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>头像<b>*</b></label>
+            <input type="file" name="pic" value="<?php echo isset($result['pic'])?$result['pic']:''?>" class="text-word"><?=$img?>
+        <?=$yimg?>
+        </li>
+        <li>
+            <label>邮箱<b>*</b></label>
+            <input name="email" type="email" class="dfinput" value="<?php echo isset($result['email'])?$result['email']:''?>" style="width:343px;"/>
+        </li>
+        <li><label>学历<b>*</b></label>  
+            <div class="vocation">
+                <select class="select1" name="xueli">
+                    <option value="xz" <?=$xxz?>>--请选择--</option>
+                    <option value="0" <?=$dazhuan?>>&nbsp;&nbsp;大专</option>
+                    <option value="1" <?=$benke?>>&nbsp;&nbsp;本科</option>
+                    <option value="2" <?=$yan?>>&nbsp;&nbsp;研究生及以上</option>
+                </select>
+            </div>
+        
+        </li>
+        <li><label>月收入<b>*</b></label>
+        <div class="vocation">
+            <select class="select1" name="ysr">
+                <option value="xz" <?=$yxz?>>--请选择--</option>
+                <option value="0" <?=$y1?>>&nbsp;&nbsp;5000以下</option>
+                <option value="1" <?=$y2?>>&nbsp;&nbsp;5000~10000</option>
+                <option value="2" <?=$y3?>>&nbsp;&nbsp;10000~15000</option>
+                <option value="3" <?=$y4?>>&nbsp;&nbsp;15000~</option>
+            </select>
+        </div>
+         <input type="hidden" name="uid" value="<?=$_SESSION['suser']['id']?>">
+        </li>
+        <li><label>婚否<b>*</b></label>
+        <div class="vocation">
+            <select class="select1" name="hunfou">
+                <option value="xz" <?=$hxz?>>--请选择--</option>
+                <option value="0" <?=$dan?>>&nbsp;&nbsp;单身</option>
+                <option value="1"  <?=$yi?>>&nbsp;&nbsp;已婚</option>
+                <option value="2" <?=$li?>>&nbsp;&nbsp;离异</option>
+                <option value="3" <?=$sang?>>&nbsp;&nbsp;丧偶</option>
+            </select>
+        </div>
+        </li>
+
+        <li><label>爱好<b>*</b></label>
+           <?php
+                  //遍历爱好数组
+                  foreach($hobby as $k=>$v){
+                      if(isset($result['hobby']) && !empty($result['hobby'])){
+                          if(in_array($k,$result['hobby'])){
+                                   echo '<input type="checkbox" name="hobby[]" checked value="'.$k.'">'.$v.'&nbsp;&nbsp;';
+                          }else{
+                                 echo '<input type="checkbox" name="hobby[]" value="'.$k.'">'.$v.'&nbsp;&nbsp;';
+                          }
+                          //循环输出  输出的时候需要判断 数据库中存储的下标值
+                      }else{
+                          //添加数据时显示
+                      echo '<input type="checkbox" name="hobby[]" value="'.$k.'">'.$v.'&nbsp;&nbsp;';
+                      }
+                  }
+
+          ?>
+        </li>
+
+        <li><label>行业<b>*</b></label>
+<?php
+//遍历行业
+    foreach($hangye as $k=>$v){
+        if(isset($result['hangyeid']) && !empty($result['hangyeid'])){
+            if($result['hangyeid'] == $v['hid']){
+                echo '<input type="radio" name="hangyeid" checked value="'.$v['hid'].'">&nbsp;'.$v['hname'].'&nbsp;&nbsp;';
+            }else{
+                echo '<input type="radio" name="hangyeid" value="'.$v['hid'].'">&nbsp;'.$v['hname'].'&nbsp;&nbsp;';
+                }
+            }else{
+                    //默认添加时正常显示
+                      echo '<input type="radio" name="hangyeid" value="'.$v['hid'].'">&nbsp;'.$v['hname'].'&nbsp;&nbsp;';
+                  }
+                   if(($k+1)%5 == 0){
+                      echo '<br/>';
+                  }
+              }
+          ?>
+        </li>
+
+        <li><label>地址<b>*</b></label>
+        <input name="address" type="text" class="dfinput" value="<?php echo isset($result['address'])?$result['address']:''?>" style="width:643px;"/>
+        
+        </li>
+        <li><input type="submit" class="submit-button" style="float:left;" value="提交"></li>
+        </form>
+    </ul>
+    
+    </div> 
+               </div>
+            </div>
+        </div>
+    </div>
+<!-- 会员中心页面 end -->
+

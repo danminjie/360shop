@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-购物车列表</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+	<style>
+		body{
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<!-- 头部广告begin -->
+	<!-- <div class="topbanner">
+		<a href="#"><img src="./include/images/topbanner.jpg" alt="" ></a>
+	</div> -->
+	<!-- 头部广告end -->
+	<!-- 头部公共部分 beigin -->
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="./index.php">手机360商城</a></li>
+					<?php
+						if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+							echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+							echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+						}else{
+							echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+							echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+						}
+					?>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left" >
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				 <form action="./index.php?m=index&a=search" method="post">
+	                    <input type="text"  value=""   class="sousuo" name="name">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>
+	                     
+			</div>
+		<!-- search end -->
+
+		
+			
+		</div>
+	</div>
+	<!-- 头部logo部分end -->
+<!-- 头部公共部分end -->
+
+	<!-- 购物车部分begin -->
+	<div class="cart_father">
+		<div class="cart_top">
+			<h3>我的购物车</h3>
+		</div>
+		<div class="cart_body">
+			<table class="cart_table" id="ncartList">
+			    <thead>
+			    <tr>
+			        <td class="col1">编号</td>
+			        <td class="col2">商品</td>
+			        <td class="col3">单价</td>
+			        <td class="col4 center">数量</td>
+			        <td class="col5">小计</td>
+			        <td class="col6">操作</td>
+			    </tr>
+			    </thead>
+			    <tbody>
+<?php
+	$total = 0;
+	if(isset($_SESSION['cart']) && count($_SESSION['cart'])>0){
+		foreach($_SESSION['cart'] as $v){
+			            echo '<tr class="chosed">';
+			            echo '<td class="col1">'.$v['id'].'</td>';
+			            echo '<td class="col2">';
+			                echo '<a href="" target="_blank" class="goods">';
+			                    echo '<img  src="../public/upload/goods/'.$v['pic'].'" class="goods_img" width="100" height="100">';
+			                    echo '<span class="goods_name">'.$v['name'].'</span></a>';
+			                echo '</div>';
+			            echo '</td>';
+			            echo '<td class="col3 "><strong>￥'.$v['price'].'</strong></td>';
+			            echo '<td class="center col4">';
+			                echo '<div class="number-editor11">';
+			                   echo '<a href="./index.php?m=cart&a=updateCart&id='.$v['id'].'&num=-1" style="font-size:18px;"><button style="width:20px;">-</button></a>&nbsp;'.$v['num'].'&nbsp;<a href="./index.php?m=cart&a=updateCart&id='.$v['id'].'&num=1"><button style="width:20px;">+</button></a>';
+			                echo '</div>';
+			                echo '<p class="beforehand pBook"></p>';
+			                     echo '<span class="number_0" ></span>';
+			            echo '</td>';
+			            $xiaoji = $v['num'] * $v['price'];
+			            $total += $xiaoji;
+			            echo '<td class="total-price col5"><strong>￥'.$xiaoji.'</strong></td>';
+			            echo '<td class="col6">';
+			                echo '<a href="./index.php?m=cart&a=delCart&id='.$v['id'].'" class="delete">删除</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="./index.php?m=buy&a=show&id='.$v['id'].'" class="button">购买</a>';
+			            echo '</td>';
+			        echo '</tr>';
+
+		}
+	}else{
+		echo '<script>alert("购物车没有东东,继续购物");location="./index.php"</script>';
+	}
+
+?>
+
+			    </tbody>
+			</table>
+			<div class="statistics">
+			    
+			    <div class="description">
+			        <p class="main"><span class="pricename">总价：</span><strong id="facePrice">￥<?=$total?></strong></p>
+			    </div>
+			    <span class="goods_num">
+			                        已选择<strong id="chkCount"><?=count($_SESSION['cart'])?></strong>件商品
+			                    </span>
+			</div>
+		</div>
+	</div>
+	<!-- 购物车部分end -->
+
+<!-- footer begin -->
+	<div class="footer_father">
+		<div class="footer_one">
+			<div class="footer_one_center">
+				<div class="one_center_three"><i class="icon1">7</i>7天无理由退货</div>
+	            <div class="one_center_three"><i class="icon2">15</i>质量问题15天换货</div>
+	            <div class="one_center_three"><i class="icon3">包</i>满99元包邮</div>
+			</div>
+		</div>
+		<div class="footer_two">
+			<div class="footer_two_center">
+				<dl class="two_center_dl">
+	                <dt>帮助中心</dt>
+	            
+	                <dd><a href="">用户登录与密码找回</a></dd>
+	                <dd><a href="">用户注册协议</a></dd>
+	                <dd><a href="">购买指南</a></dd>
+	                <dd><a href="">支付方式</a></dd>
+	                <dd><a href="">配送与说明</a></dd>
+	                <dd><a href="">用户注销</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>售后服务</dt>
+	            
+	                <dd><a href="">7日无理由退货</a></dd>
+	                <dd><a href="">质量问题15日内换货</a></dd>
+	                <dd><a href="">保修条款</a></dd>
+	                <dd><a href="">售后服务运费规则</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>联系我们</dt>
+	                <dd><span class="two_tebie">400-6822-360</span></dd>
+	                <dd>
+	                    周一至周日 9:00-18:00
+	                </dd>
+	                <dd><span class="two_tebie">400-0111-366</span></dd>
+	                <dd>
+	                    周一至周日 9:00-21:00<br>
+	                    （仅收市话费）
+	                </dd>
+	            </dl>
+			</div>
+		</div>
+		<div class="footer_three">
+			<div>
+				<p>360商城©2013-2018 360公司版权所有 京ICP备17017089号 京公网安备11000002000006号</p>
+			</div>
+		</div>
+	</div>
+<!-- footer end -->
+</body>
+</html>

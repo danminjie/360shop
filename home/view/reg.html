@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>注册账号</title>
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/reg.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+	<style>
+		body{
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="top">
+		<div class="top_left">
+			<img src="./include/images/logo.png" width="137" height="46"><span class="logo_zi">|注册牛逼商城</span>
+		</div>
+		<div class="top_right">
+			<span class="top_right_zi">我已经注册,现在就</span><a href="./index.php?m=logreg&a=login"><button class="button">登录</button></a>
+		</div>
+	</div>
+	
+	<div id="content">
+		<div class="content_left">
+			<form action="./index.php?m=logreg&a=do_reg" method="post">
+				<p class="p_botton">
+					<span class="user">用户名</span>
+					<input type="text" name="username" value="" placeholder="请设置用户名">
+				</p>
+				<p class="p_botton">
+					<span class="user">密&nbsp;&nbsp;码</span>
+					<input type="password" name="pwd" value="" placeholder="请设置登录密码">
+				</p>
+				<p class="p_botton">
+					<span class="user">密码二</span>
+					<input type="password" name="repwd" value="" placeholder="请再次输入密码">
+				</p>
+				<p class="p_botton">
+					<span class="user">验证码</span>
+					<input id="yzm" type="text" name="code" value="" placeholder="请输入验证码" style="width:156px;">
+					<img src="../public/org/Vcode.class.php" style="top:30px;" onclick="this.src='../public/org/Vcode.class.php?rnd=' + Math.random();">
+				</p>
+				<p class="p_botton">
+					<input type="submit" name="" value="注册" class="reg">
+				</p>
+			</form>
+		</div>
+		<div class="content_right">
+			<h2 class="zhuce">手机快速注册</h2>
+			<div>
+				<p class="one">请使用中国大陆手机号，编辑短信：</p>
+				<p class="two">6-14位字符（支持数字/字母/符号）</p>
+				<p class="three">作为登录密码，发送至：</p>
+				<p class="four">1069 0691 036590</p>
+				<p class="five">即可注册成功，手机号即为登录帐号。</p>
+				<p class="six">
+				</p>
+			</div>
+		</div>
+	</div>
+	<!-- footer begin -->
+	<div class="footer_father">
+		<div class="footer_one">
+			<div class="footer_one_center">
+				<div class="one_center_three"><i class="icon1">7</i>7天无理由退货</div>
+	            <div class="one_center_three"><i class="icon2">15</i>质量问题15天换货</div>
+	            <div class="one_center_three"><i class="icon3">包</i>满99元包邮</div>
+			</div>
+		</div>
+		<div class="footer_two">
+			<div class="footer_two_center">
+				<dl class="two_center_dl">
+	                <dt>帮助中心</dt>
+	            
+	                <dd><a href="">用户登录与密码找回</a></dd>
+	                <dd><a href="">用户注册协议</a></dd>
+	                <dd><a href="">购买指南</a></dd>
+	                <dd><a href="">支付方式</a></dd>
+	                <dd><a href="">配送与说明</a></dd>
+	                <dd><a href="">用户注销</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>售后服务</dt>
+	            
+	                <dd><a href="">7日无理由退货</a></dd>
+	                <dd><a href="">质量问题15日内换货</a></dd>
+	                <dd><a href="">保修条款</a></dd>
+	                <dd><a href="">售后服务运费规则</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>联系我们</dt>
+	                <dd><span class="two_tebie">400-6822-360</span></dd>
+	                <dd>
+	                    周一至周日 9:00-18:00
+	                </dd>
+	                <dd><span class="two_tebie">400-0111-366</span></dd>
+	                <dd>
+	                    周一至周日 9:00-21:00<br>
+	                    （仅收市话费）
+	                </dd>
+	            </dl>
+			</div>
+		</div>
+		<div class="footer_three">
+			<div>
+				<p>360商城©2013-2018 360公司版权所有 京ICP备17017089号 京公网安备11000002000006号</p>
+			</div>
+		</div>
+	</div>
+<!-- footer end -->
+</body>
+</html>

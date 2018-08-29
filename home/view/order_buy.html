@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-购物车列表</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+	<style>
+		body{
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<!-- 头部广告begin -->
+	<!-- <div class="topbanner">
+		<a href="#"><img src="./include/images/topbanner.jpg" alt="" ></a>
+	</div> -->
+	<!-- 头部广告end -->
+	<!-- 头部公共部分 beigin -->
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+					
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="#">手机360商城</a></li>
+					<?php
+						if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+							echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+							echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+						}else{
+							echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+							echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+						}
+					?>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left" >
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				 <form action="./index.php?m=index&a=search" method="post">
+	                    <input type="text"  value=""   class="sousuo" name="name">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>
+	                     
+			</div>
+		<!-- search end -->
+
+		
+			
+		</div>
+	</div>
+	<!-- 头部logo部分end -->
+<!-- 头部公共部分end -->
+
+	<!-- 购物车部分begin -->
+	<form action="index.php?m=buy&a=buy" method="post">
+
+	<div class="cart_father">
+	<div class="cart_top">
+			<h3>商品详情</h3>
+		</div>
+		<div class="cont ">
+			<ul>    
+			    <li class="nomgr" style="height:80px;">
+			        <div class="clearfix_new" style="padding: 13px;">
+			            <div class="l1">
+			                <a class="item-name"  href="index.php?m=detail&a=show&id=<?=$res['id']?>" target="_blank">
+			                <img src="../public/upload/goods/<?=$res['pic']?>">
+			                <span><?=$res['name']?></span>
+			                </a>
+			            </div>
+			            <div class="l2">¥<span id="sCount"><?=$res['price']?></span></div>
+			            <div class="l3">
+			                <div class="gcIpt" id="item_7129382"> x <span><?=$res['num']?></span>
+			                </div>
+			                <p class="beforehand" id="pBook_7129382"></p>
+			            </div>
+			            <div class="l4">¥<span class="allCount"><?=$res['num']*$res['price']?></span></div>
+			        </div>
+			    </li> 
+			    <input type="hidden" name="num" value="<?=$res['num']?>">
+			    <input type="hidden" name="name" value="<?=$res['name']?>">
+			    <input type="hidden" name="price" value="<?=$res['price']?>">
+			    <input type="hidden" name="goodsid" value="<?=$res['id']?>">
+			</ul>
+		</div>
+		<div class="cart_top">
+			<h3></h3>
+		</div>
+		<div class="consignee-add" style="display: block;">
+        <div class="add-row">
+            <label class="add-label" for="username">
+                <b>*</b>收货人姓名
+            </label>
+            <input name="linkman" required="required" type="text" class="consignee-add-text" datavalue="收货人姓名" maxlength="25" id="">
+        </div>
+        <input type="hidden" name="uid" value="<?=$_SESSION['suser']['id']?>">
+        <div class="add-row m-t-10">
+            <label class="add-label" for="address"><b>*</b>地址</label>
+            <textarea name="address" required="required" class="consignee-add-address" id="" datavalue="路名或街道地址，门牌号" maxlength="50"></textarea>
+        </div>
+        <div class="add-row m-t-10">
+            <label class="add-label" for="youbian">邮政编码</label>
+            <input name="code" type="text" class="consignee-add-text youbian inp" datavalue="6位邮政编码" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="6" id="">
+        </div>
+        <div class="add-row m-t-10">
+            <label class="add-label" for="phone">
+                <b>*</b>手机号码
+            </label>
+            <input name="phone" required="required" type="text" class="consignee-add-text" datavalue="11位手机号">
+           
+        </div>
+       
+</div>
+		
+		<div class="cart_body">
+			
+			<div class="statistics">
+			<input type="submit" class="submit-button" value="立即购买">
+			    <div class="description">
+			        <p class="main"><span class="pricename">总金额：</span><strong id="facePrice">￥<?=$res['num']*$res['price']?></strong></p>
+			        <input type="hidden" name="total" value="<?=$res['num']*$res['price']?>">
+			       
+			    </div>
+			    
+			</div>
+		</div>
+	</div>
+	</form>
+	<!-- 购物车部分end -->
+
+<!-- footer begin -->
+	<div class="footer_father">
+		<div class="footer_one">
+			<div class="footer_one_center">
+				<div class="one_center_three"><i class="icon1">7</i>7天无理由退货</div>
+	            <div class="one_center_three"><i class="icon2">15</i>质量问题15天换货</div>
+	            <div class="one_center_three"><i class="icon3">包</i>满99元包邮</div>
+			</div>
+		</div>
+		<div class="footer_two">
+			<div class="footer_two_center">
+				<dl class="two_center_dl">
+	                <dt>帮助中心</dt>
+	            
+	                <dd><a href="">用户登录与密码找回</a></dd>
+	                <dd><a href="">用户注册协议</a></dd>
+	                <dd><a href="">购买指南</a></dd>
+	                <dd><a href="">支付方式</a></dd>
+	                <dd><a href="">配送与说明</a></dd>
+	                <dd><a href="">用户注销</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>售后服务</dt>
+	            
+	                <dd><a href="">7日无理由退货</a></dd>
+	                <dd><a href="">质量问题15日内换货</a></dd>
+	                <dd><a href="">保修条款</a></dd>
+	                <dd><a href="">售后服务运费规则</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>联系我们</dt>
+	                <dd><span class="two_tebie">400-6822-360</span></dd>
+	                <dd>
+	                    周一至周日 9:00-18:00
+	                </dd>
+	                <dd><span class="two_tebie">400-0111-366</span></dd>
+	                <dd>
+	                    周一至周日 9:00-21:00<br>
+	                    （仅收市话费）
+	                </dd>
+	            </dl>
+			</div>
+		</div>
+		<div class="footer_three">
+			<div>
+				<p>360商城©2013-2018 360公司版权所有 京ICP备17017089号 京公网安备11000002000006号</p>
+			</div>
+		</div>
+	</div>
+<!-- footer end -->
+</body>
+</html>

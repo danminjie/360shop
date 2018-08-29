@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-列表页</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+</head>
+<body>
+
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+					
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="#">手机360商城</a></li>
+					<?php
+						
+						if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+							echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+							echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+						}else{
+							echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+							echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+						}
+					?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left" >
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				<form action="./index.php?m=index&a=search" method="post">
+	                    <input type="text"  value=""   class="sousuo" name="name">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>            
+			</div>
+		<!-- search end -->
+
+		<!-- 购物车beigin -->
+			<div class="top_cart">
+	                <a href="./index.php?m=cart&a=show" class="btn_cart"  style="z-index:100001">
+	               	 <i></i>我的购物车<span class="cart-size"></span>
+	                </a>
+	                <div class="cart_bottom">
+	                    <div class="cart_bottom_center">请<a class="tip-login" href="">登录</a>后查看您的购物车。</div>
+	                    
+	                </div>
+	            </div>
+		<!-- 购物车end -->
+		</div>
+	</div>
+	<div class="nav">
+		<div class="nav_nav">
+			<ul class="nav_nav_ul">
+				<li class="nav_one"><a href="./index.php">全部智能酷品</a>
+					
+				</li>
+			</ul>
+        </div>
+	</div>
+	<!-- 头部logo部分end -->
+	
+<!-- 头部公共部分end -->
+	<!-- 列表部分begin -->
+	<div class="listall">
+		<div class="fenleibox" style="height:50px;margin-top: 10px;">
+			
+		</div>
+		<div class="listthree">
+			<div class="list_cp">
+				<ul>
+<?php
+		if(isset($result) && count($result)>0){
+			//有数据
+			foreach($result as $v){
+				$str = <<<EOF
+					<li>
+						<dl class="desc">
+						    <dt class="pic">
+						        <a href="index.php?m=detail&a=show&id={$v['id']}">
+						            <img class="js-lazyload" data-size="180_180_" src="../public/upload/goods/{$v['pic']}"  style="display: block;">
+						        </a>
+						     </dt>
+						    <dd class="chanpzi">
+						        <a href="index.php?m=detail&a=show&id={$v['id']}">
+						            <span class="title">{$v['name']}</span>
+						            <span class="cp_price" ><i class="yen">￥</i>{$v['price']}</span>
+						        </a>
+						    </dd>
+						    <dd class="jiarucart">
+						        <a href="index.php?m=cart&a=addcart&id={$v['id']}" class="add_cart" name="add-cart">加入购物车</a>
+						                                                                                    
+						    </dd>
+						</dl>
+					</li>
+EOF;
+	echo $str;
+
+			}
+		}
+
+	?>				
+				</ul>
+			</div>
+
+		</div>
+		<!-- <ul  class="pagefy">
+			  <div>
+			    <span>
+			        <a href="">首页</a>
+			        <a href="">上一页</a>
+			        <span class="xuanzhong">1</span>
+			        <a href="">2</a>
+			        <a href="">3</a>
+			        <a href="">4</a>
+			        <a href="">5</a>
+			        <a href="">6</a>
+			        <span>...</span>
+			        <a href="" title="下一页">下一页</a><a href="" title="尾页">尾页</a>
+			    </span>
+			    <span class="infoTextAndGoPageBtnWrap"><span class="totalText"></span></span>
+			  </div>
+			  <div style="clear:both;"></div>
+			</ul> -->
+	</div>
+	<!-- 列表部分end -->

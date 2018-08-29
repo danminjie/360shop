@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>登录中心</title>
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="stylesheet" href="./include/css/reg.css">
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+	<style>
+		body{
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="top">
+		<div class="top_left">
+			<img src="./include/images/logo.png" width="137" height="46"><span class="logo_zi"></span>
+		</div>
+		<div class="top_right">
+			<span class="top_right_zi">我没有账号,现在去</span><a href="./index.php?m=logreg&a=reg"><button class="button">注册</button></a>
+		</div>
+	</div>
+	
+	<div id="content">
+		<div class="content_left" >
+			<form action="./index.php?m=logreg&a=do_login" method="post">
+				<p class="p_botton">
+					<span class="user">用户名</span>
+					<input type="text" name="username" value="" placeholder="请输入用户名">
+				</p>
+				<p class="p_botton">
+					<span class="user">密&nbsp;&nbsp;码</span>
+					<input type="password" name="pwd" value="" placeholder="请输入登录密码">
+				</p>
+				
+				<p class="p_botton">
+					<span class="user">验证码</span>
+					<input id="yzm" type="text" name="code" value="" placeholder="请输入验证码" style="width:156px;">
+					<img src="../public/org/Vcode.class.php" style="top:30px;" onclick="this.src='../public/org/Vcode.class.php?rnd=' + Math.random();">
+				</p>
+
+				
+				<p class="p_botton">
+					<input type="submit"  value="登录" class="reg">
+				</p>
+			</form>
+		</div>
+		
+	</div>
+	

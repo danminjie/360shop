@@ -1,0 +1,128 @@
+					<!-- 左边导航begin -->
+					<div id="left_nav">
+						<ul>
+<?php
+
+		if(isset($typetop) && count($typetop)>0){
+			foreach($typetop as $v){
+				if($v['pid'] == 0){
+
+							echo '<li><a href="index.php?m=list&a=show&id='.$v['id'].'">';
+									echo '<i class="fenlei_icon">&#xe7ad;</i>';
+									echo '<span class="ziti">'.$v['name'].'</span>';
+								echo '</a>';
+								echo '<div class="nav_right">';
+								    echo '<ul class="nav_right_left">';
+								//再次循环所有数据 得到pid 判断如果当前循环数据的pid要是等于$v['id']则当前循环额数据就是子类
+							foreach($typetop as $val){
+								if($v['id'] == $val['pid']){
+									//当前循环的$val就是当前$v的子元素     							    
+								        echo '<li><a href="index.php?m=list&a=show&id='.$val['id'].'">'.$val['name'].'</a></li>';
+								}
+							}								        
+								    echo '</ul>';
+								echo '</div>';
+							echo '</li>';
+							
+				}
+			}
+		}
+
+
+	?>							
+
+
+						</ul>
+					</div>
+				</li>
+<?php
+
+		if(isset($typeson) && count($typeson)>0){
+			foreach($typeson as $v){
+				if($v['pid'] != 0){
+					echo '<li><a href="index.php?m=list&a=show&id='.$v['id'].'">'.$v['name'].'</a>';
+						echo '<div class="nav_xiala">';
+			                echo '<ul class="nav_xiala_ul">';
+			                //再次循环所有数据 得到pid 判断如果当前循环数据的pid要是等于$v['id']则当前循环额数据就是子类
+							foreach($result as $val){
+								if($v['id'] == $val['typeid']){
+									//当前循环的$val就是当前$v的子元素     
+			                     echo '<li>';
+			                        echo '<a href="index.php?m=detail&a=show&id='.$val['id'].'" >';
+			                            echo '<img src="../public/upload/goods/'.$val['pic'].'"  class="" style="display: inline;">';
+			                             echo '<span title="">'.$val['name'].'</span>';
+			                             echo '<i>'.$val['price'].'</i>';
+			                        echo '</a>';
+			                     echo '</li>  ';
+								}
+							}
+			                echo '</ul>';
+	                	echo '</div>';
+					echo '</li>';
+				
+				}
+			}
+		}
+
+
+	?>				
+			</ul>
+        </div>
+	</div>
+	<!-- 头部logo部分end -->
+	<div class="huandeng">
+		<a href=""><img src="../public/upload/sys/<?=$hd[0]['huandeng']?>" alt=""></a>
+	</div>
+<!-- 头部公共部分end -->
+
+<!-- 正式产品循环bgin -->
+<?php
+	if(isset($typetop) && count($typetop)>0){
+		$num = 1;
+		foreach($typetop as $v){
+			if($v['pid'] == 0){
+				echo '<div class="chanpin_title">';
+			        echo '<a href="./index.php?m=list&a=show&id='.$v['id'].'"><h2>'.$v['name'].'</h2></a>';
+			    echo '</div>';
+			    echo '<div class="chanpinbox">';
+			    	echo '<div class="cpbox">';
+			    		echo '<div class="cpbox_left">';
+							echo '<div><a href=""><img src="./include/images/big'.$num.'.jpg" alt=""></a></div>';
+							echo '<div class="cp_bottomimg"><a href=""><img src="./include/images/small'.$num.'.jpg" alt=""></a></div>';
+			    		echo '</div>';
+			    		echo '<div class="cpbox_right">';
+							echo '<ul>';
+				
+				$m = new Model('goods');
+				$res = $m->where("state!=2 AND (typeid IN(SELECT id FROM type WHERE pid='".$v['id']."'))")->limit(8)->select();
+				if ($res) {
+					foreach($res as $val){
+						echo '<a href="./index.php?m=detail&a=show&id='.$val['id'].'">';
+							echo '<li>';
+								echo '<div class="imgbox">';
+						        echo '<img src="../public/upload/goods/'.$val['pic'].'" width="160px" height="160px">';
+						    echo '</div>';
+						    echo '<h5 class="proname">'.$val['name'].'</h5>';
+						    echo '<p class="proprice" ><i class="yen" style="font-style:normal;">￥</i>'.$val['price'].'</p>';
+							echo '</li>';
+						echo '</a>';
+					}
+								
+				}
+							echo '</ul>';
+			    		echo '</div>';
+			    	echo '</div>';
+			    echo '</div>';
+			
+			$num ++;}
+
+		}
+	
+	}
+
+
+?>
+<!-- 正式产品循环end -->
+
+
+

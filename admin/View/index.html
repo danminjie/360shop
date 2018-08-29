@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="./include/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./include/js/jquery.js"></script>
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    </ul>
+    </div>
+    
+    <div class="mainindex">
+   <?php
+       
+        $h=date('G');
+        $sj = '';
+        if ($h<11) $sj = '早上好';
+        else if ($h<13) $sj = '中午好';
+        else if ($h<17) $sj = '下午好';
+        else $sj = '晚上好';
+    ?>
+    <div class="welinfo">
+    <span><img src="./include/images/sun.png" alt="天气" /></span>
+    <b><?=$_SESSION['user']['username']?><?=$sj?>，欢迎使用牛逼商城管理系统</b>
+    </div>
+    <iframe allowtransparency="true" frameborder="0" width="480" height="96" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=0&v=0&d=4&bd=0&k=000000&f=000000&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=56294&w=480&h=96&align=center"></iframe>
+    <div class="welinfo">
+    <span><img src="./include/images/time.png" alt="时间" /></span>
+    <i>当前时间：<?=date('Y-m-d H:i:s',time())?></i>
+    </div>
+    <div class="welinfo">
+    <span><img src="./include/images/time.png" alt="时间" /></span>
+    <i>您上次登录的时间：<?=date('Y-m-d H:i:s',$result[0]['logintime'])?></i> （不是您登录的？<a href="./index.php?m=login&a=login_log">自己去检查</a>）
+    </div>
+    
+    <div class="xline"></div>
+    
+    <ul class="iconlist">
+    
+    <div class="welinfo">
+    <span><img src="./include/images/gg.png" alt="提醒" /></span>
+    <b>系统公告</b>
+    </div>
+  
+    <span><font size="12" color="red"><?=$res['gonggao']?></font></span>
+
+            
+    </ul>
+    
+    
+    <div class="xline"></div>
+    <div class="box"></div>
+    <div class="welinfo">
+    <span><img src="./include/images/xt.png" alt="提醒" /></span>
+    <b>信息管理系统信息</b>
+    </div>
+    
+    <ul class="infolist">
+    <li><span>服务器IP地址：</span><a><?=$_SERVER['SERVER_ADDR']?></a></li>
+    <li><span>PHP版本</span><a><?=PHP_VERSION?></a></li>
+    <li><span>服务器操作系统</span><a><?=php_uname()?></a></li>
+    <li><span>开发人员</span><a>MinjieDan</a></li>
+
+    </ul>
+    
+    
+    <div class="xline"></div>
+    
+    
+    
+   
+    
+    
+    </div>
+</body>
+</html>

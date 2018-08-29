@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网站后台管理系统HTML模板--模板之家 www.cssmoban.com</title>
+<link href="./include/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./include/js/jquery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">会员管理</a></li>
+    <li><a href="#">浏览会员</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <div class="tools">
+    	<ul class="toolbar">
+        <li class="click" onclick="location.href='./index.php?m=user&a=add';"><span><img src="./include/images/t01.png" /></span>添加</li>
+        <li class="click" onclick="location.href='./index.php?m=user&a=huishou';"><span><img src="./include/images/t01.png" /></span>会员回收站</li>
+        </ul>
+    </div>
+    <form method="get" action="./index.php">
+        <div class="">
+            <ul class="forminfo">
+            <!--隐藏传输-->
+            <input type="hidden" name="m" value="user" />
+            <input type="hidden" name="a" value="show">
+            <input type="hidden" name="biaoshi" value="s" />
+            <li>管理员：<input class="dfinput" style="width: 118px;" type="text" name="username" value="">
+            权限：
+               <select name="state">
+                  <option value="xz">--请选择--</option>
+                  <option value="0">--普通会员--</option>
+                  <option value="1">--VIP会员--</option>
+                  <option value="2">--禁用会员--</option>
+                  <option value="3">--超级管理员--</option>
+               </select>
+               性别：
+               <input type="radio" name="sex" value="bxz" checked>不选择
+               <input type="radio" name="sex" value="0">女
+               <input type="radio" name="sex" value="1">男
+               <input type="radio" name="sex" value="2">保密
+               年龄范围:
+               <input class="dfinput" style="width: 38px;" type="number" name="age1" value="">~
+               <input class="dfinput" style="width: 38px;" type="number" name="age2" value="">
+                <input name="" type="submit" value="查询" class="btn" style="width: 48px;">
+               </li>
+            </ul>
+        </div>
+    </from>
+    <table class="tablelist" id="search">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th>编号<i class="sort"><img src="./include/images/px.gif" /></i></th>
+        <th>管理账号</th>
+        <th>权限</th>
+        <th>添加时间</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+<?php
+if(is_array($result)){
+    foreach($result as $v){
+        //格式化时间戳
+          $time = date('Y-m-d H:i:s',$v['addtime']);
+          //定义权限数组
+          $state = array(
+            '普通会员',
+            '<font color="red">VIP会员</font>',
+            '<font color="#ccc">禁用</font>',
+            '<font color="green" size="5">超级管理员</font>');
+    echo '<tr>';
+        echo '<td><input name="" type="checkbox" value="" /></td>';
+        echo '<td>'.$v['id'].'</td>';
+        echo '<td>'.$v['username'].'</td>';
+        echo '<td>'.$state[$v['state']].'</td>';
+        echo '<td>'.$time.'</td>';
+        echo '<td><a href="index.php?m=user&a=user_info&id='.$v['id'].'&username='.$v['username'].'" class="tablelink">详情</a>&nbsp;|&nbsp;<a href="index.php?m=user&a=update&id='.$v['id'].'&username='.$v['username'].'" class="tablelink">编辑</a>&nbsp;|&nbsp;<a href="index.php?m=user&a=in_huishou&id='.$v['id'].'" class="tablelink">加入回收站</a></td>';
+    echo '</tr>';
+    }
+}   
+?>
+        </tbody>
+    </table>
+    <div class="pagin">
+    	<?php echo $p->showPage(); ?>
+    </div>   
+    </div> 
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+</body>
+</html>

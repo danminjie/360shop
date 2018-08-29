@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-订单页</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="stylesheet" href="./include/css/order.css">
+	<link rel="shortcut icon" href="./include/include/images/favicon.ico">
+</head>
+<body>
+	<!-- 头部广告begin -->
+	<!-- <div class="topbanner">
+		<a href="#"><img src="./include/images/topbanner.jpg" alt="" ></a>
+	</div> -->
+	<!-- 头部广告end -->
+<!-- 头部公共部分 beigin -->
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="#">手机360商城</a></li>
+					<?php
+						if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+							echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+							echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+						}else{
+							echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+							echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+						}
+					?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left" >
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				 <form action="./index.php?m=index&a=search" method="post">
+	                    <input type="text"  value=""   class="sousuo" name="name">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>          
+			</div>
+		<!-- search end -->
+
+		<!-- 购物车beigin -->
+			<div class="top_cart">
+	                <a href="./index.php?m=cart&a=show" class="btn_cart"  style="z-index:100001">
+	               	 <i></i>我的购物车<span class="cart-size">(0)</span>
+	                </a>
+	                <div class="cart_bottom">
+	                    <div class="cart_bottom_center">请<a class="tip-login" href="">登录</a>后查看您的购物车。</div>
+	                    
+	                </div>
+	            </div>
+		<!-- 购物车end -->
+		</div>
+	</div>
+	<div class="nav">
+		<div class="nav_nav">
+			<ul class="nav_nav_ul">
+				<li class="nav_one"><a href="./index.php">全部智能酷品</a>
+				</li>
+			</ul>
+        </div>
+	</div>
+	<!-- 头部logo部分end -->
+<!-- 头部公共部分end -->
+
+<!-- 会员中心页面 begin -->
+	<div class="user-body">
+        <div class="user-container">
+            <div class="user-container">
+                <div class="user-crumbs m-b-10"><a href="/">首页</a> &gt;</div>
+                <div class="clearfix_new">
+                    <div class="user-menu m-r-20">
+					    <div class="menu-title">个人中心</div>
+					    <div class="menu-list">
+					        <a class="menu-item coupon_menu-active" href="./index.php?m=user&a=info&username=<?=$_SESSION['suser']['username']?>">个人信息管理</a>
+					        <a class="menu-item coupon_menu" href="./index.php?m=user&a=update">修改密码</a>
+					        <a class="menu-item item-active" href="./index.php?m=user&a=order">我的订单</a>
+					    </div>
+					</div>                  
+				<div class="user-main">
+			    <div class="order-main">
+			        <h1>订单号：767916490<?=$result['id']?><p></p>
+			            <p class="countdown_tip" data-countdowntime=""></p></h1>
+			        <div class="mod-user-list">			                            
+			            <div class="express-desc">
+			                <dl class="update-address">
+			                    <dt>
+			                        收货信息
+			                    </dt>
+			                    <dd class="consignee-view">
+			                        <p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：
+			                            <span class="addr-realname"><?=$result['linkman']?></span></p>
+			                        <p>收货地址：<span class="addr-province"><?=$result['address']?></span><span class="addr-city"></span><span class="addr-county"></span> <span class="addr-address"></span></p>
+			                        <p>联系方式：<span class="addr-mobile"><?=$result['phone']?></span></p>
+			                    </dd>
+			                </dl>
+			            </div>
+			            <table id="userOrderList" width="100%" border="0" cellspacing="0" cellpadding="0">
+			                <tbody>
+			                <tr class="list-title">
+			                    <th class="list-col1">订单信息</th>
+			                    <th class="list-col2">订单金额</th>
+			                    <th class="list-col3">订单状态</th>
+			                    <th class="list-col3">下单时间</th>
+			                    <th class="list-col4">操作</th>
+			                </tr>
+			                </tbody>
+			                <tbody>
+			                    <tr class="list-order-detail">
+			                        <td>
+			                         <div class="item-product clearfix_new">
+			                            <a href="">
+			                                <img class="item-img"  src="../public/upload/goods/<?=$goods['pic']?>">
+			                            </a>
+			                        <div class="item-txt">
+			                            <p><a href="" target="_blank"><?=$result['name']?></a> </p>
+			                             <td>￥<?=$result['total']?><p class="item-fee"></p></td>
+			                            </div>
+			                        </div></td>
+									<td><?=$state[$result['status']]?></td>
+			                        <td><?=date("Y-m-d H:i:s", $result['addtime'])?></td>
+			   <?php
+			   		if ($result['status'] == 3) {
+			   			echo '<td><p><a class="item-console" style="color:green;">订单已完成</a>';
+			   			if	($result['is_ping'] != 0){
+			   				echo '| <a class="item-console" style="color:green;">已评价</a>';
+			   			}
+			   			if	($result['is_ping'] == 0){
+			   				echo '| <a href="./index.php?m=user&a=pingorder&id='.$_GET['id'].'" class="item-console" >评价</a>';
+			   			}
+			   			echo '</p></td>';
+			   		}
+			   		if($result['status'] == 2) {
+			   			echo '<td><p><a class="item-console" >等待平台处理</a></p></td>';
+			   		}
+			   		if($result['status'] == 1) {
+			   			echo '<td><p><a href="./index.php?m=user&a=zhuangtai&id='.$_GET['id'].'&status=2" class="item-console" >确认收货</a></p></td>';
+			   		}
+			   		if($result['status'] == 0) {
+			   			echo '<td><p><a class="item-console" >等待发货</a></p></td>';
+			   		}
+			   ?>
+			                        
+			                    </tr>
+		                </tbody>
+			            </table>
+			        </div>
+			        <div class="order-detail">
+			            <div class="price-detail">
+			                <p>商品总价：<span><?=$result['total']?>元</span></p>
+			                <h2>实付总额：<span><b><?=$result['total']?></b>元</span></h2>
+			            </div>
+			        </div>
+
+			    </div>
+			</div>
+               </div>
+            </div>
+        </div>
+    </div>
+<!-- 会员中心页面 end -->
+

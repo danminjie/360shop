@@ -1,0 +1,174 @@
+*{
+            margin: 0;
+            padding: 0;
+            font: "微软雅黑",Verdana,SimHei,"Microsoft JhengHei",Tahoma;
+        }
+
+        .hr{
+            background: url('./hr.png');
+            background-color: red;
+        }
+        #top{
+            
+            width:1000px;
+            height: 70px;
+            margin:0 auto;
+            border-bottom: 1px solid #b3b3b7;
+        }
+        .top_left .logo_zi{
+            line-height: :70px;
+            font-size: 25px;
+            color: #b3b3b7;
+        }
+        .top_left{
+            margin-top: 20px;
+            float: left;
+
+        }
+        .top_right{
+            margin-top: 20px;
+            float: right;
+            line-height: 70px;
+        }
+        .button{
+            width:60px;
+            height: 40px;
+            font-size: 16px;
+        }
+        .top_right_zi{
+            font-size: 10px;
+            color: #666;
+        }
+        #content{
+            margin:0 auto;
+            width:1000px;
+            height: 420px;
+            
+        }
+        .content_left{
+            margin-top: 50px;
+            margin-left: 30px;
+            width: 610px;
+            height: 380px;
+            float: left;
+            
+        }
+        .content_right{
+            margin-top: 30px;
+            width: 349px;
+            height: 312px;
+            float: right;
+            background: red;
+            border: 1px solid #d1eeff;
+            background-color: #f5fbff;
+        }
+        input{
+            height: 16px;
+            width: 328px;
+            padding: 11px 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+            transition: .3s;
+        }
+        .user{
+            height: 42px;
+            width: 65px;
+            margin-right: 10px;
+            line-height: 42px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 700;
+        }
+        .p_botton{
+            margin-bottom: 20px;
+        }
+        .send{
+            border: 1px solid #ddd;
+            height: 40px;
+            background: #f7f7f7;
+            color: #666;
+            font-weight: 400;
+            width: 156px;
+            font-size: 14px;
+        }
+        .reg{
+            margin-left: 60px;
+            border: 1px solid #ddd;
+            height: 50px;
+            background: #f7f7f7;
+            color: white;
+            font-weight: 400;
+            width: 350px;
+            font-size: 18px;
+            background: #3f89ec;
+        }
+        .shengmin{
+            color: #666;
+            font-size: 12px;
+        }
+        a{
+            text-decoration: none;
+        }
+        .zhuce{
+            margin: 0 10px;
+            padding-left: 30px;
+            height: 50px;
+            line-height: 50px;
+            background: url('./phone.png') left center no-repeat;
+            border-bottom: 1px solid #e6edf2;
+            font-size: 14px;
+            color: #666;
+        }
+        .one{
+            color: #666;
+            font-size: 12px;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        .two{
+            font-size: 14px;
+            color: #f18300;
+            margin-left: 20px;
+            font-weight: 700;
+        }
+        .three{
+            color: #666;
+            font-size: 12px;
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        .four{
+            font-size: 14px;
+            color: #f18300;
+            margin-left: 20px;
+            font-weight: 700;
+        }
+        .five{
+            color: #666;
+            font-size: 12px;
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        .six{
+            margin-left: 60px;
+        }
+        .seven{
+            color: #666;
+            font-size: 12px;
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        .xuanze{
+            position: absolute;
+            left:100px;
+            top:373px;
+        }
+        .foot{
+            text-align: center;
+            color: #7a77c8;
+            font-size: 14px;
+        }

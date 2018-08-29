@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-订单页</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="stylesheet" href="./include/css/order.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+</head>
+<body>
+	<!-- 头部广告begin -->
+	<!-- <div class="topbanner">
+		<a href="#"><img src="./include/images/topbanner.jpg" alt="" ></a>
+	</div> -->
+	<!-- 头部广告end -->
+<!-- 头部公共部分 beigin -->
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="#">手机360商城</a></li>
+			<?php
+				if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+					echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+					echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+				}else{
+					echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+					echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+				}
+			?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left" >
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				 <form action="./index.php?m=index&a=search" method="post">
+	                    <input type="text"  value=""   class="sousuo" name="name">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>            
+			</div>
+		<!-- search end -->
+
+		<!-- 购物车beigin -->
+			<div class="top_cart">
+	                <a href="./index.php?m=cart&a=show" class="btn_cart"  style="z-index:100001">
+	               	 <i></i>我的购物车<span class="cart-size"></span>
+	                </a>
+	                <div class="cart_bottom">
+	                    <div class="cart_bottom_center">请<a class="tip-login" href="">登录</a>后查看您的购物车。</div>
+	                    
+	                </div>
+	            </div>
+		<!-- 购物车end -->
+		</div>
+	</div>
+	<div class="nav">
+		<div class="nav_nav">
+			<ul class="nav_nav_ul">
+				<li class="nav_one"><a href="./index.php">全部智能酷品</a>
+				</li>
+			</ul>
+        </div>
+	</div>
+	<!-- 头部logo部分end -->
+<!-- 头部公共部分end -->
+
+<!-- 会员中心页面 begin -->
+	<div class="user-body">
+        <div class="user-container">
+            <div class="user-container">
+                <div class="user-crumbs m-b-10"><a href="/">首页</a> &gt;</div>
+                <div class="clearfix_new">
+                    <div class="user-menu m-r-20">
+					    <div class="menu-title">个人中心</div>
+					    <div class="menu-list">
+					        <a class="menu-item coupon_menu-active" href="./index.php?m=user&a=info&username=<?=$_SESSION['suser']['username']?>">个人信息管理</a>
+					        <a class="menu-item coupon_menu" href="./index.php?m=user&a=update">修改密码</a>
+					        <a class="menu-item item-active" href="./index.php?m=user&a=order">我的订单</a>
+					    </div>
+					</div>                    
+				<div class="user-main">
+				    <input id="basePath" type="hidden" value="static.i360mall.com">
+				    <div class="order-main clearfix_new">
+				        <div class="special-div">
+				            <span class="ls_span" style="display:none"></span>
+				            <h1 style="border:0;"> 我的订单 </h1>
+				        </div>
+				        <div class="mod-user-list">
+				            <ul id="ul_order_type" class="order_type" style="padding:0;padding-left:10px;margin-bottom:20px;">
+				                <li><a href="./index.php?m=user&a=order" class="<?=$classall?>">全部订单</a></li>
+				                <li >
+				                    <a href="./index.php?m=user&a=order&biaoshi=wf" class="<?=$classwf?>" >未发货</a><em><?=$wf?></em></li>
+				                <li >
+				                    <a href="./index.php?m=user&a=order&biaoshi=yf" class="<?=$classyf?>" >已发货</a><em><?=$yf?></em></li>
+				                <li><a href="./index.php?m=user&a=order&biaoshi=ys" class="<?=$classys?>" >已收货</a><em><?=$ys?></em></li>
+				                <li><a href="./index.php?m=user&a=order&biaoshi=wc" class="<?=$classwc?>" >已完成</a><em><?=$wc?></em></li>
+				            </ul>
+				            <table style="  " width="100%" border="0" cellspacing="0" cellpadding="0">
+				                <thead>
+					                <tr class="list-title">
+					                    <th class="list-col1">订单信息</th>
+					                    <th></th>
+					                    <th class="list-col2">订单金额</th>
+					                    <th class="list-col3">订单状态</th>
+					                    <th class="list-col4">操作</th>
+					                </tr>
+				                </thead>
+				                <tbody>
+<?php
+		if($result){
+			//有数据
+			foreach($result as $v){
+				$time = date("Y-m-d H:i:s", $v['addtime']);
+				$m1 = new Model('goods');
+				$goods = $m1->where("id='".$v['goodsid']."'")->find();
+				$num = $v['total']/$goods['price'];
+				$state = array(
+		            '<font color="red">正在出库</font>',
+		            '<font color="red">已发货</font>',
+		            '<font color="red">已确认收货</font>',
+		            '<font color="green" size="5">已完成</font>',);
+				$str = <<<EOF
+			                <tr class="list-order-info">
+				                <td colspan="5">订单编号：<b class="m-r-20">767916490{$v['id']}</b> 提交时间：{$time}
+				                </td>
+			            	</tr>
+			                <tr class="list-order-detail" >
+			                <td class="item-product-td">
+				                <div class="item-product clearfix_new" >
+				                <a href="" target="_blank">
+				                	<img class="item-img" src="../public/upload/goods/{$goods['pic']}" >
+				            	</a>
+				                <div class="item-txt"> <p><a href="" target="_blank" >{$goods['name']}</a></p> 
+				                </div> 
+				                <div class="item-count">x{$num}</div>
+				            	</div>
+			            	</td>
+			                <td class="after_service"></td>
+			                <td>￥{$v['total']}<p class="item-fee"></p></td>
+			                <td>{$state[$v['status']]}</td>
+			                <td><p><a href="./index.php?m=user&a=showorder&id={$v['id']}" class="item-console" >详情</a></p></td>
+			             	</tr>
+EOF;
+	echo $str;
+
+			}
+
+		}else{
+			echo '<tr class="list-order-detail" ><td>暂无订单</td></tr>';
+		}
+
+	?>
+				                </tbody>
+				            </table>
+				        </div>
+				    </div>	 
+				</div>
+               </div>
+            </div>
+        </div>
+    </div>
+<!-- 会员中心页面 end -->
+

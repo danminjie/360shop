@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>360商城-列表页</title>
+	<link rel="stylesheet" href="./include/css/style.css">
+	<link rel="stylesheet" href="./include/css/font.css">
+	<link rel="shortcut icon" href="./include/images/favicon.ico">
+	<style>
+		body{
+			background: #fff;
+			font: 12px 微软雅黑, Verdana, SimHei, "Microsoft JhengHei", Tahoma;
+			color: rgb(102, 102, 102);
+		}
+	</style>
+</head>
+<body>
+	<!-- 头部广告begin -->
+	<!-- <div class="topbanner">
+		<a href="#"><img src="./include/images/topbanner.jpg" alt="" ></a>
+	</div> -->
+	<!-- 头部广告end -->
+	<!-- 头部公共部分 beigin -->
+	<div class="topbox">
+		<div class="topbox_center">
+			<div class="topbox_left">
+				<ul>
+					<li><a href="#"></a></li>
+					<li><a href="#"></a></li>
+				</ul>
+				<ul>
+					<li><img src="./include/images/phone.png" alt=""><a href="./index.php">手机360商城</a></li>
+					<?php
+						session_start();
+						if (isset($_SESSION['suser']['username']) && $_SESSION['suser']['username'] == true) {
+							echo '<li><a href="./index.php?m=logreg&a=logout">退出</a></li>';
+							echo '<li><a href="./index.php?m=user&a=order" style="color:red;">欢迎您:【'.$_SESSION['suser']['username'].'】</a></li>';
+						}else{
+							echo '<li><a href="./index.php?m=logreg&a=reg">注册</a></li>';
+							echo '<li><a href="./index.php?m=logreg&a=login">登录</a></li>';
+						}
+					?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 头部logo部分 begin -->
+	<div class="logobaise">
+		<div class="toplogo">
+		<!-- logo begin -->
+			<div class="top_logo_left">
+				<a href="./index.php"><img src="./include/images/logo.png" alt=""></a>
+			</div>
+		<!-- logo end -->
+		<!-- search begin -->
+			<div class="top_search">
+				 <form action="./index.php?m=index&a=search" method="post">
+	                    <input type="text"  value=""   class="sousuo" name="name">
+	                    <input type="submit" value="" class="search_btn">
+	                </form>
+	                <p class="key">
+		                <a href="">N6 lite</a>
+		                <a href="">儿童手表</a>
+		                <a href="">N6</a>
+		                <a href="">行车记录仪</a>
+		                <a href="">摄像机夜视版</a>
+	                </p>                
+			</div>
+		<!-- search end -->
+
+		<!-- 购物车beigin -->
+			<div class="top_cart">
+	                <a href="./index.php?m=cart&a=show" class="btn_cart"  style="z-index:100001">
+	               	 <i></i>我的购物车<span class="cart-size"></span>
+	                </a>
+	                <div class="cart_bottom">
+	                    <div class="cart_bottom_center">请<a class="tip-login" href="">登录</a>后查看您的购物车。</div>
+	                    
+	                </div>
+	            </div>
+		<!-- 购物车end -->
+		</div>
+	</div>
+	<div class="nav">
+		<div class="nav_nav">
+			<ul class="nav_nav_ul">
+				<li class="nav_one"><a href="./index.php">全部智能酷品</a>
+					
+				</li>
+				
+			</ul>
+        </div>
+	</div>
+	<!-- 头部logo部分end -->
+	
+<!-- 头部公共部分end -->
+	<!-- 产品详情部分begin -->
+	<div class="xq_father">
+		<div class="xq_center">
+			<div class="xq_left" style="width: 288px; height: 288px; ">
+				<img src="../public/upload/goods/<?=$result['pic']?>" width="288px" height="288px">
+			</div>
+			<div class="xq_right">
+				<div class="xq_rightone">
+					<strong><?=$result['name']?></strong>
+					
+				</div>
+				<div class="xq_righttwo">
+					<div><strong class="xq_price"><em>￥</em><?=$result['price']?></strong></div>
+				</div>
+				<div class="xq_rightthree">
+					
+				</div>
+				<div class="xq_rightfour">
+					<div>
+						<span class="shuxing_ys">厂家</span>
+						<a ><?=$result['company']?></a>
+						
+					</div>
+					<div>
+						<span class="shuxing_ys">点击量</span>
+						<a><?=$result['clicknum']?></a>
+					</div>
+					<div>
+						<span class="shuxing_ys">库存</span>
+						<a><?=$result['store']?></a>
+					</div>
+				</div>
+				<div class="xq_addcart">
+					<a href="index.php?m=cart&a=addcart&id=<?=$result['id']?>" class="addche">加入购物车</a>
+				</div>
+			</div>
+
+		</div>
+		<!-- 产品详情下面部分begin -->
+		<div class="xq_xiacenter">
+			<div class="xq_xialeft">
+				<h3>随便看看</h3>
+				<ul>
+					
+<?php
+		if(isset($kanle) && count($kanle)>0){
+			//有数据
+			foreach($kanle as $v){					
+					echo '<li>';
+						echo '<a href="index.php?m=detail&a=show&id='.$v['id'].'"><img src="../public/upload/goods/'.$v['pic'].'" >';
+						echo '<p class="price">￥'.$v['price'].'</p>';
+						echo '<p>'.$v['name'].'</p>';
+						echo '</a>';
+					echo '</li>';
+			}
+		}
+
+	?>						
+					
+					
+					
+				</ul>
+			</div>
+			<div class="xq_xiaright">
+				<div class="xq_xiarightnav">
+					<div class="xq_xiarightzi">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#xiangqing">产品详情</a>
+						<a href="#xiangqing">产品简介</a>
+					</div>
+				</div>
+				<div class="cpxq">
+					<div class="cpxq_xq">
+						<p name="xiangqing">产品简介</p>
+					</div>
+					<div class="cpxq_pj">
+
+						<?=$result['descr']?>
+
+					</div>
+					
+					<div class="cpxq_xq">
+						<p >产品评价</p>
+					</div>
+					<div class="cpxq_pj">
+						<ul>
+<?php
+	if($pingjia){
+		foreach($pingjia as $v){
+		$time = date("Y-m-d H:i:s", $v['addtime']);
+		$m = new Model('user');
+		$user = $m->where("id='".$v['uid']."'")->find();
+		$str = <<<EOF
+		<li>
+				<div> 
+				<div class="eval-rating starts3"> 
+				<img src="./include/images/fen{$v['dafen']}.png"> 
+				</div> 
+				<div class="username">{$user['username']}</div> 
+				</div><p class="pj">{$v['content']}</p> 
+				<p class="eval-order-info"> 
+				<span>{$time}</span>
+				<span>{$v['goodsname']}</span></p>
+			</li>
+EOF;
+		echo $str;
+		}
+	}else{
+		echo '<li><p class="pj">暂无评价,想第一个评价吗？？？？</p></li>';
+	}
+?>
+							
+						</ul>
+					</div>
+					
+				</div>
+			</div>
+			
+		</div>
+		<!-- 产品详情下面部分end -->
+	</div>
+<!--PC和WAP自适应版-->
+<div id="SOHUCS" sid="请将此处替换为配置SourceID的语句" ></div> 
+<script type="text/javascript"> 
+(function(){ 
+var appid = 'cytMeUfwk'; 
+var conf = 'prod_0c020c9cf2201604aedf6d3672a78630'; 
+var width = window.innerWidth || document.documentElement.clientWidth; 
+if (width < 960) { 
+window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+	<!-- 产品详情部分end -->
+<!-- footer begin -->
+	<div class="footer_father">
+		<div class="footer_one">
+			<div class="footer_one_center">
+				<div class="one_center_three"><i class="icon1">7</i>7天无理由退货</div>
+	            <div class="one_center_three"><i class="icon2">15</i>质量问题15天换货</div>
+	            <div class="one_center_three"><i class="icon3">包</i>满99元包邮</div>
+			</div>
+		</div>
+		<div class="footer_two">
+			<div class="footer_two_center">
+				<dl class="two_center_dl">
+	                <dt>帮助中心</dt>
+	            
+	                <dd><a href="">用户登录与密码找回</a></dd>
+	                <dd><a href="">用户注册协议</a></dd>
+	                <dd><a href="">购买指南</a></dd>
+	                <dd><a href="">支付方式</a></dd>
+	                <dd><a href="">配送与说明</a></dd>
+	                <dd><a href="">用户注销</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>售后服务</dt>
+	            
+	                <dd><a href="">7日无理由退货</a></dd>
+	                <dd><a href="">质量问题15日内换货</a></dd>
+	                <dd><a href="">保修条款</a></dd>
+	                <dd><a href="">售后服务运费规则</a></dd>
+	            </dl>
+	            <dl class="two_center_dl">
+	                <dt>联系我们</dt>
+	                <dd><span class="two_tebie">400-6822-360</span></dd>
+	                <dd>
+	                    周一至周日 9:00-18:00
+	                </dd>
+	                <dd><span class="two_tebie">400-0111-366</span></dd>
+	                <dd>
+	                    周一至周日 9:00-21:00<br>
+	                    （仅收市话费）
+	                </dd>
+	            </dl>
+			</div>
+		</div>
+		<div class="footer_three">
+			<div>
+				<p>360商城©2013-2018 360公司版权所有 京ICP备17017089号 京公网安备11000002000006号</p>
+			</div>
+		</div>
+	</div>
+<!-- footer end -->
+</body>
+</html>

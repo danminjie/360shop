@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="./include/css/style.css" rel="stylesheet" type="text/css" />
+<link href="./include/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./include/js/jquery.js"></script>
+<script type="text/javascript" src="./include/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="./include/js/select-ui.min.js"></script>
+<script type="text/javascript" src="./include/editor/kindeditor.js"></script>
+
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+		width : 345			  
+	});
+	$(".select2").uedSelect({
+		width : 167  
+	});
+	$(".select3").uedSelect({
+		width : 100
+	});
+});
+</script>
+</head>
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">商品管理</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+    
+    
+    <div id="usual1" class="usual"> 
+    
+    <div class="itab">
+  	<ul> 
+    <li><a href="" class="selected"><?php echo $goods_info_str ?></a></li> 
+  	</ul>
+    <ul class="toolbar">
+        <li class="click" onclick="location.href='./index.php?m=goods&a=show';"><span><img src="./include/images/t01.png" /></span>商品列表</li>
+        </ul>
+    </div> 
+    
+  	<div id="tab1" class="tabson">
+    <form method="post" action="./index.php?m=goods&a=<?php echo $method ?>" enctype="multipart/form-data">
+        <ul class="forminfo">
+        <li>
+            <label>商品名称<b>*</b></label>
+            <input name="name" type="text" class="dfinput" value="<?php echo isset($result['name'])?$result['name']:''?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>商品类别<b>*</b></label>
+            <div class="vocation">
+                <select class="select1" name="typeid">
+                    <option value="xz">--请选择--</option>
+<?php
+      //遍历类别的结果
+      if(is_array($res) && count($res)>0){
+        foreach($res as $k=>$v){
+          $num = substr_count($v['path'],',');
+          $nbsp = str_repeat('&nbsp;',($num-1)*3);
+              if($v['pid'] == 0){
+                //顶级类
+                $show = 'disabled';
+              }else{
+                //子类
+                $show = '';
+              }
+              //默认选中
+              if($v['id'] == $result['typeid']){
+                //选中
+                $select = 'selected';
+              }else{
+                //不选中
+                $select = '';
+              }
+echo '<option value="'.$v['id'].'" '.$show.' '.$select.'>'.$nbsp.$v['name'].'</option>';
+          }
+        }
+
+
+?>
+                </select>
+            </div>
+        </li>
+        <li>
+            <label>商品价格<b>*</b></label>
+            <input name="price" type="text"  class="dfinput" value="<?php echo isset($result['price'])?$result['price']:''?>"  style="width:343px;"/>
+        </li>
+        <li>
+            <label>生产厂家<b>*</b></label>
+            <input name="company" type="text" class="dfinput" value="<?php echo isset($result['company'])?$result['company']:''?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>商品图片<b>*</b></label>
+            <input type="file" name="pic" value="<?php echo isset($result['pic'])?$result['pic']:''?>" class="text-word">
+            <?=$img?> 
+            <?=$yimg?>
+        </li>
+        <li>
+            <label>商品库存<b>*</b></label>
+            <input name="store" type="text" class="dfinput" value="<?php echo isset($result['store'])?$result['store']:''?>" style="width:343px;"/>
+        </li>
+        <li><label>商品状态<b>*</b></label>  
+            <div class="vocation">
+                <select class="select1" name="state">
+                   <option value="0" <?=$new?>>&nbsp;&nbsp;新添加</option>
+                  <option value="1" <?=$up?>>&nbsp;&nbsp;在售</option>
+                  <option value="2" <?=$down?>>&nbsp;&nbsp;下架</option>
+                </select>
+            </div>
+        
+        </li>
+        
+        <li><label>商品简介<b>*</b></label>
+        <textarea id="content7" name="descr" style="width:700px;height:250px;visibility:hidden;"><?php echo isset($result['descr'])?$result['descr']:''?></textarea>
+        
+        </li>
+        <?php
+          if (isset($_GET['id'])) {
+           echo '<input type="hidden" name="gid" value="'.$_GET['id'].'">';
+          }
+        ?>
+        
+        <li><label>&nbsp;</label><input  type="submit" class="btn" value="提交"/>&nbsp;<input name="" type="reset" class="btn" value="重置"/></li>
+        </form>
+    </ul>
+    
+    </div> 
+    
+    
+  	
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+</body>
+</html>

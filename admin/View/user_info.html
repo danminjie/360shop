@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="./include/css/style.css" rel="stylesheet" type="text/css" />
+<link href="./include/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="./include/js/jquery.js"></script>
+<script type="text/javascript" src="./include/js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="./include/js/select-ui.min.js"></script>
+<script type="text/javascript" src="./include/editor/kindeditor.js"></script>
+
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+		width : 345			  
+	});
+	$(".select2").uedSelect({
+		width : 167  
+	});
+	$(".select3").uedSelect({
+		width : 100
+	});
+});
+</script>
+</head>
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#"><?=$user_info_str?></a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+    
+    
+    <div id="usual1" class="usual"> 
+    
+    <div class="itab">
+  	<ul> 
+    <li><a href="#tab1" class="selected"><?=$user_info_str?></a></li> 
+  	</ul>
+    </div> 
+    
+  	<div id="tab1" class="tabson">
+    <form method="post" action="./index.php?m=user&a=<?=$method?>" enctype="multipart/form-data">
+        <ul class="forminfo">
+        <li>
+            <label>用户名<b>*</b></label>
+            <input readonly name="username" type="text" class="dfinput" value="<?=$_GET['username']?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>真实姓名<b>*</b></label>
+            <input name="name" type="text" class="dfinput" value="<?php echo isset($result['name'])?$result['name']:''?>"  style="width:343px;"/>
+        </li>
+        <li>
+            <label>年龄<b>*</b></label>
+            <input name="age" type="number" min="1" max="200" class="dfinput" value="<?php echo isset($result['age'])?$result['age']:''?>"  style="width:343px;"/>
+        </li>
+        <li>
+            <label>性别：<b>*</b></label>
+            <input type="radio" name="sex" value="0" <?=$nv?> />女
+            <input type="radio" name="sex" value="1"  <?=$nan?> />男
+            <input type="radio" name="sex" value="2" <?=$baomi?>/>保密
+        </li>
+        <li>
+            <label>身份证<b>*</b></label>
+            <input name="code" type="text" class="dfinput" value="<?php echo isset($result['code'])?$result['code']:''?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>手机<b>*</b></label>
+            <input name="phone" type="tel" class="dfinput" value="<?php echo isset($result['phone'])?$result['phone']:''?>" style="width:343px;"/>
+        </li>
+        <li>
+            <label>头像<b>*</b></label>
+            <input type="file" name="pic" value="<?php echo isset($result['pic'])?$result['pic']:''?>" class="text-word"><?=$img?>
+        <?=$yimg?>
+        </li>
+        <li>
+            <label>邮箱<b>*</b></label>
+            <input name="email" type="email" class="dfinput" value="<?php echo isset($result['email'])?$result['email']:''?>" style="width:343px;"/>
+        </li>
+        <li><label>学历<b>*</b></label>  
+            <div class="vocation">
+                <select class="select1" name="xueli">
+                    <option value="xz" <?=$xxz?>>--请选择--</option>
+                    <option value="0" <?=$dazhuan?>>&nbsp;&nbsp;大专</option>
+                    <option value="1" <?=$benke?>>&nbsp;&nbsp;本科</option>
+                    <option value="2" <?=$yan?>>&nbsp;&nbsp;研究生及以上</option>
+                </select>
+            </div>
+        
+        </li>
+        <li><label>月收入<b>*</b></label>
+        <div class="vocation">
+            <select class="select1" name="ysr">
+                <option value="xz" <?=$yxz?>>--请选择--</option>
+                <option value="0" <?=$y1?>>&nbsp;&nbsp;5000以下</option>
+                <option value="1" <?=$y2?>>&nbsp;&nbsp;5000~10000</option>
+                <option value="2" <?=$y3?>>&nbsp;&nbsp;10000~15000</option>
+                <option value="3" <?=$y4?>>&nbsp;&nbsp;15000~</option>
+            </select>
+        </div>
+         <input type="hidden" name="uid" value="<?=$_GET['id']?>">
+        </li>
+        <li><label>婚否<b>*</b></label>
+        <div class="vocation">
+            <select class="select1" name="hunfou">
+                <option value="xz" <?=$hxz?>>--请选择--</option>
+                <option value="0" <?=$dan?>>&nbsp;&nbsp;单身</option>
+                <option value="1"  <?=$yi?>>&nbsp;&nbsp;已婚</option>
+                <option value="2" <?=$li?>>&nbsp;&nbsp;离异</option>
+                <option value="3" <?=$sang?>>&nbsp;&nbsp;丧偶</option>
+            </select>
+        </div>
+        </li>
+
+        <li><label>爱好<b>*</b></label>
+           <?php
+                  //遍历爱好数组
+                  foreach($hobby as $k=>$v){
+                      if(isset($result['hobby']) && !empty($result['hobby'])){
+                          if(in_array($k,$result['hobby'])){
+                                   echo '<input type="checkbox" name="hobby[]" checked value="'.$k.'">'.$v.'&nbsp;&nbsp;';
+                          }else{
+                                 echo '<input type="checkbox" name="hobby[]" value="'.$k.'">'.$v.'&nbsp;&nbsp;';
+                          }
+                          //循环输出  输出的时候需要判断 数据库中存储的下标值
+                      }else{
+                          //添加数据时显示
+                      echo '<input type="checkbox" name="hobby[]" value="'.$k.'">'.$v.'&nbsp;&nbsp;';
+                      }
+                  }
+
+          ?>
+        </li>
+
+        <li><label>行业<b>*</b></label>
+<?php
+//遍历行业
+    foreach($hangye as $k=>$v){
+        if(isset($result['hangyeid']) && !empty($result['hangyeid'])){
+            if($result['hangyeid'] == $v['hid']){
+                echo '<input type="radio" name="hangyeid" checked value="'.$v['hid'].'">&nbsp;'.$v['hname'].'&nbsp;&nbsp;';
+            }else{
+                echo '<input type="radio" name="hangyeid" value="'.$v['hid'].'">&nbsp;'.$v['hname'].'&nbsp;&nbsp;';
+                }
+            }else{
+                    //默认添加时正常显示
+                      echo '<input type="radio" name="hangyeid" value="'.$v['hid'].'">&nbsp;'.$v['hname'].'&nbsp;&nbsp;';
+                  }
+                   if(($k+1)%5 == 0){
+                      echo '<br/>';
+                  }
+              }
+          ?>
+        </li>
+
+        <li><label>地址<b>*</b></label>
+        <textarea id="content7" name="address" style="width:700px;height:250px;visibility:hidden;"><?php echo isset($result['address'])?$result['address']:''?></textarea>
+        
+        </li>
+        <li><label>&nbsp;</label><input  type="submit" class="btn" value="提交"/>&nbsp;<input name="" type="reset" class="btn" value="重置"/></li>
+        </form>
+    </ul>
+    
+    </div> 
+    
+    
+  	
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+</body>
+</html>

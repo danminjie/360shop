@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网站后台管理系统HTML模板--模板之家 www.cssmoban.com</title>
+<link href="./include/css/style.css" rel="stylesheet" type="text/css" />
+
+<style>
+    .uew-select select {
+    z-index: 2;
+    position: absolute;
+    top: 3px;
+    _top: 6px;
+    cursor: pointer;
+    height: 28px;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">商品管理</a></li>
+    <li><a href="#">商品回收</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <div class="tools">
+    	<ul class="toolbar">
+        <li class="click" onclick="location.href='./index.php?m=goods&a=goods_info';"><span><img src="./include/images/t01.png" /></span>添加</li>
+        <li class="click" onclick="location.href='./index.php?m=goods&a=show';"><span><img src="./include/images/t01.png" /></span>商品列表</li>
+        </ul>
+    </div>
+    <form method="get" action="./index.php">
+            <input type="hidden" name="m" value="goods" />
+            <input type="hidden" name="a" value="huishou">
+            <input type="hidden" name="biaoshi" value="h" />
+        <ul class="seachform">
+            <li><label>商品名称：</label><input name="name" type="text" class="scinput" /></li>
+            <li> <a href="./index.php?m=goods&a=huishou&biaozhi=c"><button class="scbtn" type="button" style="width:100px;">点击量排序</button></a></li>
+            <li> <!--  <a href="./index.php?m=goods&a=show&biaozhi=b"><button class="scbtn" type="button" style="width:100px;">点击量升序</button></a> --></li>
+            <li>
+            状态
+                       <select name="state">
+                           <option value="xz">--请选择--</option>
+                           <option value="0">&nbsp;&nbsp;新添加</option>
+                           <option value="1">&nbsp;&nbsp;在售</option>
+                           <option value="2">&nbsp;&nbsp;下架</option>
+                       </select>
+                       价格范围:
+                       <input class="dfinput" style="width: 48px;" type="text" name="jgmin" value="">~
+                       <input class="dfinput" style="width: 48px;" type="text" name="jgmax" value="">
+            </li>
+            
+            <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询"/></li>
+            
+    </ul>
+    </from>
+    <table class="tablelist" id="search">
+    	<thead>
+    	<tr>
+        <th>编号<i class="sort"><img src="./include/images/px.gif" /></i></th>
+        <th>商品类别</th>
+        <th>商品名称</th>
+        <th>商品价格</th>
+        <th>商品图片</th>
+        <th>商品库存</th>
+        <th>点击量</th>
+        <th>商品状态</th>
+        <th>添加时间</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+<?php
+    //遍历商品
+    if(is_array($result)  && count($result)>0){
+        foreach($result as $v){
+        $name = mb_substr($v['name'],0,22);
+        $time = date('Y-m-d H:i:s',$v['addtime']);
+        $l = new Model('type');
+        $lei = $l->where('id='.$v['typeid'])->field('name')->find();
+        //var_dump($lei);
+        $str = <<<EOF
+    <tr>
+        <td>{$v['id']}</td>
+        <td>{$lei['name']}</td>
+        <td>{$name}</td>
+        <td>{$v['price']}</td>
+        <td><img src="../public/upload/goods/{$v['pic']}" width="80" height="60" style="padding:2px;" /></td>
+        <td>{$v['num']}</td>
+        <td>{$v['clicknum']}</td>
+        <td>{$v['state']}</td>
+        <td>{$time}</td>
+        <td><a href="index.php?m=goods&a=del&id={$v['id']}" class="tablelink">彻底删除</a>&nbsp;|&nbsp;<a href="index.php?m=goods&a=out_huishou&id={$v['id']}" class="tablelink">移出回收站</a></td>
+    </tr>
+EOF;
+        echo $str;
+        }
+    }
+?>
+        </tbody>
+    </table>
+    <div class="pagin">
+    	<?php echo $p->showPage(); ?>
+    </div>   
+    </div> 
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+</body>
+</html>
